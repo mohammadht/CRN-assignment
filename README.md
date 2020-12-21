@@ -8,9 +8,10 @@ The current project contains the following types of classes and interfaces:
 •	Restfull web service classes which provide an interface for accessing and sending queries to the databases.
 
 How to run the project:
-•	Running Apache Tomcat v9.0 server at local host
-•	Adding the project to the server
-•	Running the server
+•	Install Java 8.
+•	Run Apache Tomcat v9.0 server at local host
+•	Add the project to the server
+•	Run the server
 •	Send the following queries to the server from internal Eclipse’s terminal
 
 The following functionalities are supported and examples of the supported queries are provided:
