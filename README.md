@@ -11,9 +11,9 @@ How to run the project:
 •	Running Apache Tomcat v9.0 server at local host
 •	Adding the project to the server
 •	Running the server
-•	Send the queries to the server from internal Eclipse’s terminal
+•	Send the following queries to the server from internal Eclipse’s terminal
 
-Queries for testing functionalities of the project:
+The following functionalities are supported and examples of the supported queries are provided:
 1.	List all users:  curl http://localhost:8080/CRN/rest/users
 2.	List all users with at least one valid user role at a given unit at a given time: curl http://localhost:8080/CRN/rest/users/11/2019-11-11T00:00:00.00Z
 3.	List all units: curl http://localhost:8080/CRN/rest/units
@@ -23,6 +23,10 @@ Queries for testing functionalities of the project:
 7.	Create a new user: curl -X POST -H "Content-Type: application/json" -d "{\"name\":\"Mohammad\"}" http://localhost:8080/CRN/rest/users
 8.	Update an existing user: curl -X PUT -H "Content-Type: application/json" -d "{\"name\”:\"Mohammad\”} http://localhost:8080/CRN/rest/users/1/1
 9.	Delete an existing user. A user can only be deleted if there are no user roles for that user.: curl -X DELETE http://localhost:8080/CRN/rest/users/3/1
-10.	Create a new user role for a given user id, unit id, role id, an optional valid from/to timestamp: curl -X POST -H "Content-Type: application/json" -d "{\"userId\":3,\"unitId\":13,\"roleId\":103,\"validFrom\":\"2020-10-10T00:00:00.00Z\",\"validTo\":\"2020-12-12T00:00:00.00Z\"}" http://localhost:8080/CRN/rest/user-roles
+10.	Create a new user role for a given user id, unit id, role id, an optional valid from/to timestamp. If a valid to timestamp is specified, it must be after the valid from timestamp (or the current date and time if valid from timestamp is not specified in the request). At most one user role for a given combination of
+user id, unit id and role id can be valid at any point in time. The requirement that the valid to timestamp, if specified, must come after the
+valid from timestamp must be enforced, and an update that would cause two user roles for the same user id, unit id and role id to be valid at the
+same time must be rejected: curl -X POST -H "Content-Type: application/json" -d "{\"userId\":3,\"unitId\":13,\"roleId\":103,\"validFrom\":\"2020-10-10T00:00:00.00Z\",\"validTo\":\"2020-12-12T00:00:00.00Z\"}" http://localhost:8080/CRN/rest/user-roles
 11.	Update an existing user role: curl -X PUT -H "Content-Type: application/json" -d "{\"validFrom\":\"2020-12-21T23:00:00.00Z\",\"validTo\":\"2021-12-21T23:00:00.00Z\"}" http://localhost:8080/CRN/rest/user-roles/1009/1
 12.	Delete an existing user role: curl -X DELETE http://localhost:8080/CRN/rest/user-roles/1009
+13. For a given unit id, list all users with at least one user role at that unit (whether the user role is currently valid or not): curl http://localhost:8080/CRN/rest/users/11 
